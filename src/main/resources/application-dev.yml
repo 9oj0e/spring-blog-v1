@@ -4,3 +4,26 @@ server:
       charset: utf-8
       force: true
   port: 8080
+
+spring:
+# db conntection
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:test;MODE=MySQL
+    username: sa
+    password:
+# h2 console url 생성
+  h2:
+    console:
+      enabled: true
+# 아직 모른다.
+  jpa:
+    hibernate:
+      ddl-auto: create
+      # ddl = data definition language. 'create' 테이블 생성.
+    show-sql: true
+    # 작동할 때 발생하는 쿼리를 콘솔창에 띄운다.
+    properties:
+      hibernate:
+        format_sql: true
+        # 발생하는 쿼리를 정리해서 콘솔창에 띄워준다.
