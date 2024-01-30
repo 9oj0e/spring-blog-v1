@@ -6,17 +6,26 @@ server:
   port: 8080
 
 spring:
-# db conntection
+  mustache:
+    servlet:
+      expose-session-attributes: true
+      #session 접근
+      expose-request-attributes: true
+      #request 접근
+
+  #db conntection
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:test;MODE=MySQL
     username: sa
     password:
-# h2 console url 생성
+
+  #h2 console url 생성
   h2:
     console:
       enabled: true
-# 아직 모른다.
+
+  #아직 모른다.
   jpa:
     hibernate:
       ddl-auto: create

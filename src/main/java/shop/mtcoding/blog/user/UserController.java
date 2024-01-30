@@ -1,8 +1,11 @@
 package shop.mtcoding.blog.user;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+
+import javax.servlet.http.HttpSession;
 
 /**
  * 1. 요청받기 (URL)
@@ -13,13 +16,12 @@ import org.springframework.web.bind.annotation.PostMapping;
  * 6. view만 원하면 view를 응답하면 끝
  * 7. DB처리를 원하면 Model(DAO)에게 위임 후 view를 응답하면 끝
  */
+
+@RequiredArgsConstructor
 @Controller
 public class UserController {
-    private UserRepository userRepository;
-
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
-    }
+    private final UserRepository userRepository;
+    private final HttpSession session;
 
     @PostMapping("/login") // login만 예외로 post 요청
     public String login(UserRequest.LoginDTO requestDTO) {
@@ -29,10 +31,13 @@ public class UserController {
 
         // 2. model 연결 (위임)
         User user = userRepository.findByUsernameAndPassword(requestDTO);
-        System.out.println("Controller: "+user);
-
+        if (user == null)
+            return "error/401";
+        else {
+            session.setAttribute("sessionUser", user); // hash 구조
+            return "redirect:/";
+        }
         // 3. 응답
-        return "redirect:/";
     }
 
     @PostMapping("/join") // mvc pattern
