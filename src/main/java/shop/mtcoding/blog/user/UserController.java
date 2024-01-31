@@ -75,6 +75,8 @@ public class UserController {
 
     @GetMapping("/logout") // cv
     public String logout() {
+        // session.setAttribute(); 클라이언트가 키를 버린다.
+        session.invalidate(); // 클라이언트는 키를 가지고 있으나, 서랍 자체를 없애버린다.
         return "redirect:/";
     }
 }
