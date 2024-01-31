@@ -13,7 +13,7 @@ spring:
       expose-request-attributes: true
       #request 접근
 
-  #db conntection
+  #h2db conntection
   datasource:
     driver-class-name: org.h2.Driver
     url: jdbc:h2:mem:test;MODE=MySQL
@@ -24,8 +24,11 @@ spring:
   h2:
     console:
       enabled: true
-
-  #아직 모른다.
+  sql:
+    init:
+      data-locations:
+        - classpath:db/data.sql
+        # resource 폴더.
   jpa:
     hibernate:
       ddl-auto: create
@@ -36,3 +39,4 @@ spring:
       hibernate:
         format_sql: true
         # 발생하는 쿼리를 정리해서 콘솔창에 띄워준다.
+    defer-datasource-initialization: true

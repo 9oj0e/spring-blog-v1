@@ -15,15 +15,6 @@ public class UserRequest {
         private String username;
         private String password;
         private String email;
-
-        @Override
-        public String toString() {
-            return "JoinDTO{" +
-                    "username='" + username + '\'' +
-                    ", password='" + password + '\'' +
-                    ", email='" + email + '\'' +
-                    '}';
-        }
     }
     @Data
     public static class LoginDTO {
