@@ -25,6 +25,7 @@ public class UserController {
 
     @PostMapping("/login") // login만 예외로 post 요청
     public String login(UserRequest.LoginDTO requestDTO) {
+        System.out.println(requestDTO);
         // 1. 유효성 검사
         if (requestDTO.getUsername().length() < 3)
             return "error/400";
