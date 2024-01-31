@@ -47,10 +47,14 @@ public class UserController {
         if (requestDTO.getUsername().length() < 3)
             return "error/400";
 
-        // 2. model에 위임하기
-        userRepository.saveV2(requestDTO);
-        // DB insert 하면 안된다. (controller의 책임이 아니다)
-
+        // 2. 동일 username 체크
+        User user = userRepository.findByUsername(requestDTO.getUsername());
+        if (user == null){
+            // 3. model에 위임하기
+            userRepository.save(requestDTO);
+        } else {
+            return "error/400";
+        }
         return "redirect:/loginForm";
     }
 
