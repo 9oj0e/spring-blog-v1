@@ -1,5 +1,6 @@
 package shop.mtcoding.blog.board;
 
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
@@ -29,8 +30,10 @@ public class BoardController {
         return "board/saveForm";
     }
 
-    @GetMapping("/board/1")
-    public String detail() {
+    @GetMapping("/board/{id}")
+    public String detail(@PathVariable int id, HttpServletRequest request) {
+        Board board = boardRepository.findById(id);
+        request.setAttribute("board", board);
         return "board/detail";
     }
 }
